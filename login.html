@@ -1,23 +1,36 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>登陆界面</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登录</title>
+<link rel="stylesheet" type="text/css" href="Reg.css"/>
 </head>
-<style>
-    body{
-        background: url("img/2.jpg");
-        /*是否随着屏幕一起移动*/
-        background-attachment: fixed;
-        /*不允许重复*/
-        background-repeat: no-repeat;
-        margin: 25% 25% 25% 25%;
-    }
-</style>
 <body>
-    <form action="index.html" enctype="multipart/form-data" method="POST">
-        <p>用户名: <input type="text" name="username" id="username"></p>
-        <p>密&nbsp;&nbsp;&nbsp;&nbsp;码: <input type="password" name="password" id="password"></p>
-        <input type="submit" value="登陆" />
-    </form>
+    <p id="Login">
+        <h1>Login<h1>
+        <form action="index_do.php" method="post" enctype="multipart/form-data">                     
+            <input type="text" id="username" name="username" list="username" required="required" placeholder="用户名" class="input1"><br>
+            <input type="password" id="password" name="password" required="required" placeholder="密码" class="input1"><br>
+            <input type="button" name="login" id="loginbt" value="登录" class="input2" >
+            <a href="http://localhost:3000/reg">注册</a>
+            <!-- <a href="findpassword.php">忘记密码?</a> -->
+        </form>
+    </p>
+    <script src="./Javascripts/jq.js"></script>
+    <script>
+           $('#loginbt').on('click',()=>{
+                $.post('/login',{
+                    username:$('#username').val(),
+                    password:$('#password').val(),
+                },function(res){
+                    if(res.err==0){
+                        alert("登录成功");
+                        window.location.href="http://localhost:3000/room";
+                    }else{
+                        alert(res.msg);
+                    }
+                });
+            });
+      </script>
 </body>
 </html>
